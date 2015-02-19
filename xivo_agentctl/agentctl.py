@@ -19,51 +19,48 @@ from __future__ import print_function
 from __future__ import unicode_literals
 
 import argparse
+import xivo_agentd_client
 
-from contextlib import contextmanager
 from operator import attrgetter
 
 from xivo.cli import BaseCommand, Interpreter, UsageError
-from xivo_agent.ctl.client import AgentClient
 
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('-c', '--command',
                         help='run command')
+    parser.add_argument('--host', default=xivo_agentd_client.DEFAULT_HOST,
+                        help='hostname of the xivo-agentd server')
+    parser.add_argument('--port', type=int, default=xivo_agentd_client.DEFAULT_PORT,
+                        help='port number of the xivo-agentd server')
     parser.add_argument('--no-fetch', action='store_true',
-                        help="don't fetch response from server")
+                        help=argparse.SUPPRESS)
 
     parsed_args = parser.parse_args()
+    if parsed_args.no_fetch:
+        print('the no-fetch option has been deprecated and does nothing now')
 
-    fetch_response = not parsed_args.no_fetch
+    agent_client = _new_agent_client(parsed_args)
+    interpreter = Interpreter(prompt='xivo-agentctl> ',
+                              history_file='~/.xivoagentctl_history')
+    interpreter.add_command('add', AddAgentToQueueCommand(agent_client))
+    interpreter.add_command('remove', RemoveAgentFromQueueCommand(agent_client))
+    interpreter.add_command('login', LoginCommand(agent_client))
+    interpreter.add_command('logoff', LogoffCommand(agent_client))
+    interpreter.add_command('relog all', RelogAllCommand(agent_client))
+    interpreter.add_command('pause', PauseCommand(agent_client))
+    interpreter.add_command('unpause', UnpauseCommand(agent_client))
+    interpreter.add_command('status', StatusCommand(agent_client))
 
-    with _agent_client(fetch_response) as agent_client:
-        interpreter = Interpreter(prompt='xivo-agentctl> ',
-                                  history_file='~/.xivoagentctl_history')
-        interpreter.add_command('add', AddAgentToQueueCommand(agent_client))
-        interpreter.add_command('remove', RemoveAgentFromQueueCommand(agent_client))
-        interpreter.add_command('login', LoginCommand(agent_client))
-        interpreter.add_command('logoff', LogoffCommand(agent_client))
-        interpreter.add_command('relog all', RelogAllCommand(agent_client))
-        interpreter.add_command('pause', PauseCommand(agent_client))
-        interpreter.add_command('unpause', UnpauseCommand(agent_client))
-        interpreter.add_command('status', StatusCommand(agent_client))
-
-        if parsed_args.command:
-            interpreter.execute_command_line(parsed_args.command)
-        else:
-            interpreter.loop()
+    if parsed_args.command:
+        interpreter.execute_command_line(parsed_args.command)
+    else:
+        interpreter.loop()
 
 
-@contextmanager
-def _agent_client(fetch_response):
-    agent_client = AgentClient(fetch_response=fetch_response)
-    agent_client.connect()
-    try:
-        yield agent_client
-    finally:
-        agent_client.close()
+def _new_agent_client(parsed_args):
+    return xivo_agentd_client.Client(parsed_args.host, parsed_args.port)
 
 
 class BaseAgentClientCommand(BaseCommand):
@@ -90,7 +87,7 @@ class AddAgentToQueueCommand(BaseAgentClientCommand):
             raise UsageError()
 
     def execute(self, agent_id, queue_id):
-        self._agent_client.add_agent_to_queue(agent_id, queue_id)
+        self._agent_client.agents.add_agent_to_queue(agent_id, queue_id)
 
 
 class RemoveAgentFromQueueCommand(BaseAgentClientCommand):
@@ -107,7 +104,7 @@ class RemoveAgentFromQueueCommand(BaseAgentClientCommand):
             raise UsageError()
 
     def execute(self, agent_id, queue_id):
-        self._agent_client.remove_agent_from_queue(agent_id, queue_id)
+        self._agent_client.agents.remove_agent_from_queue(agent_id, queue_id)
 
 
 class LoginCommand(BaseAgentClientCommand):
@@ -125,7 +122,7 @@ class LoginCommand(BaseAgentClientCommand):
             raise UsageError()
 
     def execute(self, agent_number, extension, context):
-        self._agent_client.login_agent_by_number(agent_number, extension, context)
+        self._agent_client.agents.login_agent_by_number(agent_number, extension, context)
 
 
 class LogoffCommand(BaseAgentClientCommand):
@@ -147,10 +144,10 @@ class LogoffCommand(BaseAgentClientCommand):
             self._execute(agent_number)
 
     def _execute_all(self):
-        self._agent_client.logoff_all_agents()
+        self._agent_client.agents.logoff_all_agents()
 
     def _execute(self, agent_number):
-        self._agent_client.logoff_agent_by_number(agent_number)
+        self._agent_client.agents.logoff_agent_by_number(agent_number)
 
 
 class RelogAllCommand(BaseAgentClientCommand):
@@ -159,7 +156,7 @@ class RelogAllCommand(BaseAgentClientCommand):
     usage = None
 
     def execute(self):
-        self._agent_client.relog_all_agents()
+        self._agent_client.agents.relog_all_agents()
 
 
 class PauseCommand(BaseAgentClientCommand):
@@ -175,7 +172,7 @@ class PauseCommand(BaseAgentClientCommand):
             raise UsageError()
 
     def execute(self, agent_number):
-        self._agent_client.pause_agent_by_number(agent_number)
+        self._agent_client.agents.pause_agent_by_number(agent_number)
 
 
 class UnpauseCommand(BaseAgentClientCommand):
@@ -191,7 +188,7 @@ class UnpauseCommand(BaseAgentClientCommand):
             raise UsageError()
 
     def execute(self, agent_number):
-        self._agent_client.unpause_agent_by_number(agent_number)
+        self._agent_client.agents.unpause_agent_by_number(agent_number)
 
 
 class StatusCommand(BaseAgentClientCommand):
@@ -213,12 +210,12 @@ class StatusCommand(BaseAgentClientCommand):
             self._execute(agent_number)
 
     def _execute_all(self):
-        agent_statuses = self._agent_client.get_agent_statuses()
+        agent_statuses = self._agent_client.agents.get_agent_statuses()
         for agent_status in sorted(agent_statuses, key=attrgetter('number')):
             _print_agent_status(agent_status)
 
     def _execute(self, agent_number):
-        agent_status = self._agent_client.get_agent_status_by_number(agent_number)
+        agent_status = self._agent_client.agents.get_agent_status_by_number(agent_number)
         _print_agent_status(agent_status)
 
 
