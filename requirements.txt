@@ -1,0 +1,3 @@
+git+https://github.com/xivo-pbx/xivo-agentd-client.git
+git+https://github.com/xivo-pbx/xivo-lib-python.git
+git+https://github.com/xivo-pbx/xivo-lib-rest-client.git
