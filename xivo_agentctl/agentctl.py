@@ -30,7 +30,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('-c', '--command',
                         help='run command')
-    parser.add_argument('--host', default=xivo_agentd_client.DEFAULT_HOST,
+    parser.add_argument('--host', default='localhost',
                         help='hostname of the xivo-agentd server')
     parser.add_argument('--port', type=int, default=xivo_agentd_client.DEFAULT_PORT,
                         help='port number of the xivo-agentd server')
