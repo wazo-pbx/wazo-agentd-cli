@@ -31,5 +31,6 @@ setup(
     url='https://github.com/xivo-pbx/xivo-agentdctl',
 
     packages=find_packages(),
-    scripts=['bin/xivo-agentdctl'],
+    scripts=['bin/xivo-agentctl',
+             'bin/xivo-agentdctl'],
 )
