@@ -1,6 +1,6 @@
 # xivo-agentdctl
 
-A small CLI program to interact with xivo-agentd servers.
+A small CLI program to interact with xivo-agentd.
 
 ## Usage
 
