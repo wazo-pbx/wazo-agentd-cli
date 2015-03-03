@@ -1,5 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
-from xivo_agentctl.agentctl import main
+from xivo_agentdctl.main import main
 main()

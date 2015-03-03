@@ -42,8 +42,8 @@ def main():
         print('the no-fetch option has been deprecated and does nothing now')
 
     agent_client = _new_agent_client(parsed_args)
-    interpreter = Interpreter(prompt='xivo-agentctl> ',
-                              history_file='~/.xivoagentctl_history')
+    interpreter = Interpreter(prompt='xivo-agentdctl> ',
+                              history_file='~/.xivoagentdctl_history')
     interpreter.add_command('add', AddAgentToQueueCommand(agent_client))
     interpreter.add_command('remove', RemoveAgentFromQueueCommand(agent_client))
     interpreter.add_command('login', LoginCommand(agent_client))

@@ -20,7 +20,7 @@ from setuptools import setup
 from setuptools import find_packages
 
 setup(
-    name='xivo-agentctl',
+    name='xivo-agentdctl',
     version='1.0',
 
     description='a CLI program to interact with a xivo-agentd server',
@@ -28,8 +28,8 @@ setup(
     author='Avencall',
     author_email='dev@avencall.com',
 
-    url='https://github.com/xivo-pbx/xivo-agentctl',
+    url='https://github.com/xivo-pbx/xivo-agentdctl',
 
     packages=find_packages(),
-    scripts=['bin/xivo-agentctl'],
+    scripts=['bin/xivo-agentdctl'],
 )
