@@ -12,6 +12,7 @@ Package: xivo-agentdctl
 Architecture: all
 Section: python
 Depends: ${python:Depends}, ${misc:Depends}, xivo-agentd-client, xivo-lib-python
+Conflicts: xivo-agent (<< 15.05~20150311.170936.208f905-1)
 Description: CLI program to interact with xivo-agentd
  XiVO is a system based on a powerful IPBX, to bring an easy to
  install solution for telephony and related services.
