@@ -1,4 +1,4 @@
-Source: xivo-agentdctl
+Source: xivo-agentd-cli
 Section: python
 Priority: extra
 Maintainer: XiVO Dev Team <dev@avencall.com>
@@ -8,11 +8,14 @@ Standards-Version: 3.9.4
 X-Python-Version: >= 2.7
 Homepage: http://xivo.io/
 
-Package: xivo-agentdctl
+Package: xivo-agentd-cli
 Architecture: all
 Section: python
 Depends: ${python:Depends}, ${misc:Depends}, xivo-agentd-client, xivo-lib-python
 Conflicts: xivo-agent (<< 15.05~20150311.170936.208f905-1)
+Provides: xivo-agentdctl
+Conflicts: xivo-agentdctl
+Replaces: xivo-agentdctl
 Description: CLI program to interact with xivo-agentd
  XiVO is a system based on a powerful IPBX, to bring an easy to
  install solution for telephony and related services.

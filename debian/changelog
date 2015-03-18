@@ -1,3 +1,9 @@
+xivo-agentd-cli (0.2) xivo-dev; urgency=medium
+
+  * Rename xivo-agentdctl to xivo-agentd-cli 
+
+ -- Francois Blackburn <fblackburn@avencall.com>  Wed, 18 Mar 2015 11:16:46 -0400
+
 xivo-agentdctl (0.1) xivo-dev; urgency=low
 
   * Initial release.
