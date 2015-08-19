@@ -225,6 +225,7 @@ def _print_agent_status(agent_status):
     if agent_status.logged:
         print('    extension: {0.extension}'.format(agent_status))
         print('    context: {0.context}'.format(agent_status))
+        print('    state interface: {0.state_interface}'.format(agent_status))
 
 
 if __name__ == '__main__':
