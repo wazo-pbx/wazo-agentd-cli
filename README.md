@@ -15,4 +15,5 @@ Agent/1004 (ID 4)
      logged: True
      extension: 1004
      context: default
+     state_interface: SIP/alice
 ```
