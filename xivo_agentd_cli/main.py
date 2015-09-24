@@ -25,6 +25,8 @@ from operator import attrgetter
 
 from xivo.cli import BaseCommand, Interpreter, UsageError
 
+DEFAULT_PORT = 9493
+
 
 def main():
     parser = argparse.ArgumentParser()
@@ -32,7 +34,7 @@ def main():
                         help='run command')
     parser.add_argument('--host', default='localhost',
                         help='hostname of the xivo-agentd server')
-    parser.add_argument('--port', type=int, default=xivo_agentd_client.DEFAULT_PORT,
+    parser.add_argument('--port', type=int, default=DEFAULT_PORT,
                         help='port number of the xivo-agentd server')
     parser.add_argument('--no-fetch', action='store_true',
                         help=argparse.SUPPRESS)
