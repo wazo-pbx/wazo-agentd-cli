@@ -48,7 +48,7 @@ def main():
 
 
 def _new_agent_client(config):
-    return xivo_agentd_client.Client(**config['agent'])
+    return xivo_agentd_client.Client(**config['agentd'])
 
 
 class BaseAgentClientCommand(BaseCommand):

@@ -6,6 +6,6 @@
 # should be.
 extra_config_files: /etc/xivo-agentd-cli/conf.d
 
-agent:
+agentd:
   host: localhost
   verify_certificate: /usr/share/xivo-certs/server.crt

@@ -23,7 +23,7 @@ from xivo.config_helper import read_config_file_hierarchy
 _DEFAULT_CONFIG = {
     'config_file': '/etc/xivo-agentd-cli/config.yml',
     'extra_config_files': '/etc/xivo-agentd-cli/conf.d',
-    'agent': {
+    'agentd': {
         'host': 'localhost',
         'verify_certificate': '/usr/share/xivo-certs/server.crt',
     },
@@ -54,14 +54,14 @@ def _parse_cli_args(argv):
                         help='Port number of the xivo-agentd server.')
     parsed_args = parser.parse_args(argv)
 
-    result = {'agent': {}}
+    result = {'agentd': {}}
     if parsed_args.command:
         result['command'] = parsed_args.command
     if parsed_args.config_file:
         result['config_file'] = parsed_args.config_file
     if parsed_args.host:
-        result['agent']['host'] = parsed_args.host
+        result['agentd']['host'] = parsed_args.host
     if parsed_args.port:
-        result['agent']['port'] = parsed_args.port
+        result['agentd']['port'] = parsed_args.port
 
     return result
