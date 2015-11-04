@@ -36,12 +36,8 @@ def main():
                         help='hostname of the xivo-agentd server')
     parser.add_argument('--port', type=int, default=DEFAULT_PORT,
                         help='port number of the xivo-agentd server')
-    parser.add_argument('--no-fetch', action='store_true',
-                        help=argparse.SUPPRESS)
 
     parsed_args = parser.parse_args()
-    if parsed_args.no_fetch:
-        print('the no-fetch option has been deprecated and does nothing now')
 
     agent_client = _new_agent_client(parsed_args)
     interpreter = Interpreter(prompt='xivo-agentd-cli> ',
