@@ -18,32 +18,18 @@
 from __future__ import print_function
 from __future__ import unicode_literals
 
-import argparse
+import sys
 import xivo_agentd_client
 
 from operator import attrgetter
-
 from xivo.cli import BaseCommand, Interpreter, UsageError
-
-DEFAULT_PORT = 9493
+from xivo_agentd_cli.config import load as load_config
 
 
 def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument('-c', '--command',
-                        help='run command')
-    parser.add_argument('--host', default='localhost',
-                        help='hostname of the xivo-agentd server')
-    parser.add_argument('--port', type=int, default=DEFAULT_PORT,
-                        help='port number of the xivo-agentd server')
-    parser.add_argument('--no-fetch', action='store_true',
-                        help=argparse.SUPPRESS)
+    config = load_config(sys.argv[1:])
 
-    parsed_args = parser.parse_args()
-    if parsed_args.no_fetch:
-        print('the no-fetch option has been deprecated and does nothing now')
-
-    agent_client = _new_agent_client(parsed_args)
+    agent_client = _new_agent_client(config)
     interpreter = Interpreter(prompt='xivo-agentd-cli> ',
                               history_file='~/.xivo_agentd_cli_history')
     interpreter.add_command('add', AddAgentToQueueCommand(agent_client))
@@ -55,14 +41,14 @@ def main():
     interpreter.add_command('unpause', UnpauseCommand(agent_client))
     interpreter.add_command('status', StatusCommand(agent_client))
 
-    if parsed_args.command:
-        interpreter.execute_command_line(parsed_args.command)
+    if config.get('command'):
+        interpreter.execute_command_line(config['command'])
     else:
         interpreter.loop()
 
 
-def _new_agent_client(parsed_args):
-    return xivo_agentd_client.Client(parsed_args.host, parsed_args.port)
+def _new_agent_client(config):
+    return xivo_agentd_client.Client(**config['agentd'])
 
 
 class BaseAgentClientCommand(BaseCommand):
