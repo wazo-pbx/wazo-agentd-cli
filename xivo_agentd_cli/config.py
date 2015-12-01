@@ -18,11 +18,16 @@
 import argparse
 
 from xivo.chain_map import ChainMap
-from xivo.config_helper import read_config_file_hierarchy
+from xivo.config_helper import parse_config_file, read_config_file_hierarchy
 
 _DEFAULT_CONFIG = {
     'config_file': '/etc/xivo-agentd-cli/config.yml',
     'extra_config_files': '/etc/xivo-agentd-cli/conf.d',
+    'auth': {
+        'host': 'localhost',
+        'key_file': '/var/lib/xivo-auth-keys/xivo-agentd-cli-key.yml',
+        'verify_certificate': '/usr/share/xivo-certs/server.crt',
+    },
     'agentd': {
         'host': 'localhost',
         'verify_certificate': '/usr/share/xivo-certs/server.crt',
@@ -33,7 +38,8 @@ _DEFAULT_CONFIG = {
 def load(argv):
     cli_config = _parse_cli_args(argv)
     file_config = read_config_file_hierarchy(ChainMap(cli_config, _DEFAULT_CONFIG))
-    return ChainMap(cli_config, file_config, _DEFAULT_CONFIG)
+    key_config = _load_key_file(ChainMap(cli_config, file_config, _DEFAULT_CONFIG))
+    return ChainMap(cli_config, key_config, file_config, _DEFAULT_CONFIG)
 
 
 def _parse_cli_args(argv):
@@ -65,3 +71,9 @@ def _parse_cli_args(argv):
         result['agentd']['port'] = parsed_args.port
 
     return result
+
+
+def _load_key_file(config):
+    key_file = parse_config_file(config['auth']['key_file'])
+    return {'auth': {'service_id': key_file['service_id'],
+                     'service_key': key_file['service_key']}}
