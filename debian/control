@@ -15,7 +15,7 @@ Depends: ${python:Depends},
          ${misc:Depends},
          xivo-agentd-client,
          xivo-auth-client,
-         xivo-lib-python
+         xivo-lib-python (>> 15.18)
 Conflicts: xivo-agent (<< 15.05~20150311.170936.208f905-1), xivo-agentdctl
 Provides: xivo-agentdctl
 Replaces: xivo-agentdctl
