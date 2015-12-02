@@ -20,8 +20,10 @@ from __future__ import unicode_literals
 
 import sys
 import xivo_agentd_client
+import xivo_auth_client
 
 from operator import attrgetter
+from xivo.auth_helpers import TokenRenewer
 from xivo.cli import BaseCommand, Interpreter, UsageError
 from xivo_agentd_cli.config import load as load_config
 
@@ -29,7 +31,9 @@ from xivo_agentd_cli.config import load as load_config
 def main():
     config = load_config(sys.argv[1:])
 
+    token_renewer = TokenRenewer(_new_auth_client(config), expiration=600)
     agent_client = _new_agent_client(config)
+
     interpreter = Interpreter(prompt='xivo-agentd-cli> ',
                               history_file='~/.xivo_agentd_cli_history')
     interpreter.add_command('add', AddAgentToQueueCommand(agent_client))
@@ -41,14 +45,24 @@ def main():
     interpreter.add_command('unpause', UnpauseCommand(agent_client))
     interpreter.add_command('status', StatusCommand(agent_client))
 
-    if config.get('command'):
-        interpreter.execute_command_line(config['command'])
-    else:
-        interpreter.loop()
+    token_renewer.subscribe_to_token_change(agent_client.set_token)
+    with token_renewer:
+        if config.get('command'):
+            interpreter.execute_command_line(config['command'])
+        else:
+            interpreter.loop()
 
 
 def _new_agent_client(config):
     return xivo_agentd_client.Client(**config['agentd'])
+
+
+def _new_auth_client(config):
+    auth_config = dict(config['auth'])
+    username = auth_config.pop('service_id')
+    password = auth_config.pop('service_key')
+    del auth_config['key_file']
+    return xivo_auth_client.Client(username=username, password=password, **auth_config)
 
 
 class BaseAgentClientCommand(BaseCommand):

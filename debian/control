@@ -11,7 +11,11 @@ Homepage: http://xivo.io/
 Package: xivo-agentd-cli
 Architecture: all
 Section: python
-Depends: ${python:Depends}, ${misc:Depends}, xivo-agentd-client, xivo-lib-python
+Depends: ${python:Depends},
+         ${misc:Depends},
+         xivo-agentd-client,
+         xivo-auth-client,
+         xivo-lib-python
 Conflicts: xivo-agent (<< 15.05~20150311.170936.208f905-1), xivo-agentdctl
 Provides: xivo-agentdctl
 Replaces: xivo-agentdctl
