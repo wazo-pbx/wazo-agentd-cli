@@ -23,7 +23,7 @@ import xivo_agentd_client
 import xivo_auth_client
 
 from operator import attrgetter
-from xivo.auth_helpers import TokenRenewer
+from xivo.token_renewer import TokenRenewer
 from xivo.cli import BaseCommand, Interpreter, UsageError
 from xivo_agentd_cli.config import load as load_config
 
