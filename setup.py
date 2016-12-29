@@ -25,10 +25,10 @@ setup(
 
     description='a CLI program to interact with a xivo-agentd server',
 
-    author='Avencall',
-    author_email='dev@avencall.com',
+    author='Wazo Authors',
+    author_email='dev.wazo@gmail.com',
 
-    url='https://github.com/wazo-pbx/xivo-agentd-cli',
+    url='http://wazo.community',
 
     packages=find_packages(),
     scripts=['bin/xivo-agentd-cli'],
