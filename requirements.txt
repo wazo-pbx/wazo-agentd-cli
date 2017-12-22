@@ -2,6 +2,6 @@ git+https://github.com/wazo-pbx/xivo-agentd-client.git
 git+https://github.com/wazo-pbx/xivo-auth-client.git
 git+https://github.com/wazo-pbx/xivo-lib-python.git
 git+https://github.com/wazo-pbx/xivo-lib-rest-client.git
-pyyaml==3.11  # from xivo-lib-python
-requests==2.4.3  # from xivo-*-client
+pyyaml==3.12  # from xivo-lib-python
+requests==2.12.4  # from xivo-*-client
 stevedore==1.17.1  # from xivo-lib-rest-client
