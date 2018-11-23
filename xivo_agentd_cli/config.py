@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2015 Avencall
+# Copyright 2015-2018 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0+
 
 import argparse
@@ -12,7 +12,7 @@ _DEFAULT_CONFIG = {
     'extra_config_files': '/etc/xivo-agentd-cli/conf.d',
     'auth': {
         'host': 'localhost',
-        'key_file': '/var/lib/xivo-auth-keys/xivo-agentd-cli-key.yml',
+        'key_file': '/var/lib/wazo-auth-keys/xivo-agentd-cli-key.yml',
         'verify_certificate': '/usr/share/xivo-certs/server.crt',
     },
     'agentd': {
