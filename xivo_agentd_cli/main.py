@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2012-2015 Avencall
+# Copyright 2012-2019 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0+
 
 from __future__ import print_function
@@ -199,7 +199,7 @@ class StatusCommand(BaseAgentClientCommand):
             self._execute(agent_number)
 
     def _execute_all(self):
-        agent_statuses = self._agent_client.agents.get_agent_statuses()
+        agent_statuses = self._agent_client.agents.get_agent_statuses(recurse=True)
         for agent_status in sorted(agent_statuses, key=attrgetter('number')):
             _print_agent_status(agent_status)
 
