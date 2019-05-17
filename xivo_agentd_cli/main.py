@@ -6,8 +6,8 @@ from __future__ import print_function
 from __future__ import unicode_literals
 
 import sys
+import wazo_auth_client
 import xivo_agentd_client
-import xivo_auth_client
 
 from operator import attrgetter
 from xivo.token_renewer import TokenRenewer
@@ -49,7 +49,7 @@ def _new_auth_client(config):
     username = auth_config.pop('service_id')
     password = auth_config.pop('service_key')
     del auth_config['key_file']
-    return xivo_auth_client.Client(username=username, password=password, **auth_config)
+    return wazo_auth_client.Client(username=username, password=password, **auth_config)
 
 
 class BaseAgentClientCommand(BaseCommand):
