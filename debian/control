@@ -1,4 +1,4 @@
-ource: xivo-agentd-cli
+Source: xivo-agentd-cli
 Section: python
 Priority: extra
 Maintainer: Wazo Maintainers <dev.wazo@gmail.com>
