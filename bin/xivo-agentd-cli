@@ -1,5 +1,1 @@
-#!/usr/bin/env python
-# -*- coding: UTF-8 -*-
-
-from xivo_agentd_cli.main import main
-main()
+wazo-agentd-cli

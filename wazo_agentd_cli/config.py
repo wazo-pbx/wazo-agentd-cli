@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright 2015-2018 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2015-2019 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 import argparse
@@ -8,11 +8,11 @@ from xivo.chain_map import ChainMap
 from xivo.config_helper import parse_config_file, read_config_file_hierarchy
 
 _DEFAULT_CONFIG = {
-    'config_file': '/etc/xivo-agentd-cli/config.yml',
-    'extra_config_files': '/etc/xivo-agentd-cli/conf.d',
+    'config_file': '/etc/wazo-agentd-cli/config.yml',
+    'extra_config_files': '/etc/wazo-agentd-cli/conf.d',
     'auth': {
         'host': 'localhost',
-        'key_file': '/var/lib/wazo-auth-keys/xivo-agentd-cli-key.yml',
+        'key_file': '/var/lib/wazo-auth-keys/wazo-agentd-cli-key.yml',
         'verify_certificate': '/usr/share/xivo-certs/server.crt',
     },
     'agentd': {
@@ -40,11 +40,11 @@ def _parse_cli_args(argv):
                         help="The path where is the config file.")
     parser.add_argument('--host',
                         action='store',
-                        help='Hostname of the xivo-agentd server.')
+                        help='Hostname of the wazo-agentd server.')
     parser.add_argument('--port',
                         action='store',
                         type=int,
-                        help='Port number of the xivo-agentd server.')
+                        help='Port number of the wazo-agentd server.')
     parsed_args = parser.parse_args(argv)
 
     result = {'agentd': {}}

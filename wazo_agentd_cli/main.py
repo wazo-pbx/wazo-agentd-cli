@@ -7,12 +7,12 @@ from __future__ import unicode_literals
 
 import sys
 import wazo_auth_client
-import xivo_agentd_client
+import wazo_agentd_client
 
 from operator import attrgetter
 from xivo.token_renewer import TokenRenewer
 from xivo.cli import BaseCommand, Interpreter, UsageError
-from xivo_agentd_cli.config import load as load_config
+from wazo_agentd_cli.config import load as load_config
 
 
 def main():
@@ -21,8 +21,8 @@ def main():
     token_renewer = TokenRenewer(_new_auth_client(config), expiration=600)
     agent_client = _new_agent_client(config)
 
-    interpreter = Interpreter(prompt='xivo-agentd-cli> ',
-                              history_file='~/.xivo_agentd_cli_history')
+    interpreter = Interpreter(prompt='wazo-agentd-cli> ',
+                              history_file='~/.wazo_agentd_cli_history')
     interpreter.add_command('add', AddAgentToQueueCommand(agent_client))
     interpreter.add_command('remove', RemoveAgentFromQueueCommand(agent_client))
     interpreter.add_command('login', LoginCommand(agent_client))
@@ -41,7 +41,7 @@ def main():
 
 
 def _new_agent_client(config):
-    return xivo_agentd_client.Client(**config['agentd'])
+    return wazo_agentd_client.Client(**config['agentd'])
 
 
 def _new_auth_client(config):
