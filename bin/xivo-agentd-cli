@@ -1,1 +1,10 @@
-wazo-agentd-cli
+#!/usr/bin/env python
+# -*- coding: UTF-8 -*-
+
+
+import warnings
+
+from wazo_agentd_cli.main import main
+
+warnings.warn("xivo-agentd-cli is deprecated, please use wazo-agentd-cli")
+main()
