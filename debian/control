@@ -1,19 +1,22 @@
 Source: wazo-agentd-cli
 Section: python
 Priority: extra
-Maintainer: Wazo Maintainers <dev.wazo@gmail.com>
+Maintainer: Wazo Maintainers <dev@wazo.community>
 Build-Depends: debhelper (>= 9), dh-python, python-all (>= 2.7), python-setuptools
 Standards-Version: 3.9.6
 X-Python-Version: >= 2.7
 
 Package: wazo-agentd-cli
 Architecture: all
+Provides: xivo-agentd-cli
+Conflicts: xivo-agentd-cli
+Replaces: xivo-agentd-cli
 Section: python
 Depends: ${python:Depends},
          ${misc:Depends},
          wazo-auth-client,
          wazo-agentd-client,
-         xivo-lib-python (>> 15.18)
+         xivo-lib-python
 Description: CLI program to interact with wazo-agentd
  Wazo is a system based on a powerful IPBX, to bring an easy to
  install solution for telephony and related services.
