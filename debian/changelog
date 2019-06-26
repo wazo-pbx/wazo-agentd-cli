@@ -1,3 +1,9 @@
+wazo-agentd-cli (19.10~20190826) wazo-dev-stretch; urgency=medium
+
+  * rename xivo-agentd-cli to wazo-agentd-cli
+
+ -- Wazo Maintainers <dev+pkg@wazo.community>  Wed, 26 Jun 2019 08:58:45 -0400
+
 xivo-agentd-cli (0.2) xivo-dev; urgency=medium
 
   * Rename xivo-agentdctl to xivo-agentd-cli 
