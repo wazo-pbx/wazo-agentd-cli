@@ -32,7 +32,10 @@ def main():
     interpreter.add_command('unpause', UnpauseCommand(agent_client))
     interpreter.add_command('status', StatusCommand(agent_client))
 
-    token_renewer.subscribe_to_token_change(agent_client.set_token)
+    token_renewer.subscribe_to_token_change(
+        lambda token: agent_client.set_token(token["token"])
+    )
+
     with token_renewer:
         if config.get('command'):
             interpreter.execute_command_line(config['command'])
