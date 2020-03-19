@@ -1,5 +1,9 @@
 #!/usr/bin/make -f
 # -*- makefile -*-
 
+export PYBUILD_NAME=wazo-agentd-cli
+export PYBUILD_DISABLE=test
+
+
 %:
-	dh $@ --with python2
+	dh $@ --with python3 --buildsystem=pybuild
