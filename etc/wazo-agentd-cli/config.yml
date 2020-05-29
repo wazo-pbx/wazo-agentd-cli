@@ -15,4 +15,6 @@ auth:
 
 agentd:
   host: localhost
-  verify_certificate: /usr/share/xivo-certs/server.crt
+  port: 9493
+  prefix: null
+  https: false
