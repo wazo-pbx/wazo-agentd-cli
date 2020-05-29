@@ -18,7 +18,9 @@ _DEFAULT_CONFIG = {
     },
     'agentd': {
         'host': 'localhost',
-        'verify_certificate': '/usr/share/xivo-certs/server.crt',
+        'port': 9493,
+        'prefix': None,
+        'https': False,
     },
 }
 
