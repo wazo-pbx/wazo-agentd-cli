@@ -1,4 +1,4 @@
-# Copyright 2012-2020 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2012-2021 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 import sys
@@ -141,7 +141,7 @@ class RelogAllCommand(BaseAgentClientCommand):
     usage = None
 
     def execute(self):
-        self._agent_client.agents.relog_all_agents()
+        self._agent_client.agents.relog_all_agents(recurse=True)
 
 
 class PauseCommand(BaseAgentClientCommand):
