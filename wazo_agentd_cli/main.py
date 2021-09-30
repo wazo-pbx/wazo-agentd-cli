@@ -138,10 +138,18 @@ class LogoffCommand(BaseAgentClientCommand):
 class RelogAllCommand(BaseAgentClientCommand):
 
     help = 'Relog all currently logged agents'
-    usage = None
+    usage = '[--timeout <timeout>]'
 
-    def execute(self):
-        self._agent_client.agents.relog_all_agents(recurse=True)
+    def prepare(self, command_args):
+        try:
+            timeout_flag = len(command_args) > 0 and command_args[0] == '--timeout'
+            timeout = int(command_args[1]) if timeout_flag else None
+            return timeout,
+        except Exception:
+            raise UsageError()
+
+    def execute(self, timeout):
+        self._agent_client.agents.relog_all_agents(recurse=True, timeout=timeout)
 
 
 class PauseCommand(BaseAgentClientCommand):
