@@ -1,4 +1,4 @@
-# Copyright 2012-2021 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2012-2023 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 import sys
@@ -213,12 +213,12 @@ class StatusCommand(BaseAgentClientCommand):
 
 
 def _print_agent_status(agent_status):
-    print('Agent/{0.number} (ID {0.id})'.format(agent_status))
-    print('    logged: {0.logged}'.format(agent_status))
+    print(f'Agent/{agent_status.number} (ID {agent_status.id})')
+    print(f'    logged: {agent_status.logged}')
     if agent_status.logged:
-        print('    extension: {0.extension}'.format(agent_status))
-        print('    context: {0.context}'.format(agent_status))
-        print('    state interface: {0.state_interface}'.format(agent_status))
+        print(f'    extension: {agent_status.extension}')
+        print(f'    context: {agent_status.context}')
+        print(f'    state interface: {agent_status.state_interface}')
 
 
 if __name__ == '__main__':
