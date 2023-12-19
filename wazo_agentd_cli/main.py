@@ -17,8 +17,9 @@ def main():
     token_renewer = TokenRenewer(_new_auth_client(config), expiration=600)
     agent_client = _new_agent_client(config)
 
-    interpreter = Interpreter(prompt='wazo-agentd-cli> ',
-                              history_file='~/.wazo_agentd_cli_history')
+    interpreter = Interpreter(
+        prompt='wazo-agentd-cli> ', history_file='~/.wazo_agentd_cli_history'
+    )
     interpreter.add_command('add', AddAgentToQueueCommand(agent_client))
     interpreter.add_command('remove', RemoveAgentFromQueueCommand(agent_client))
     interpreter.add_command('login', LoginCommand(agent_client))
@@ -49,7 +50,6 @@ def _new_auth_client(config):
 
 
 class BaseAgentClientCommand(BaseCommand):
-
     def __init__(self, agent_client):
         BaseCommand.__init__(self)
         self._agent_client = agent_client
@@ -107,7 +107,9 @@ class LoginCommand(BaseAgentClientCommand):
             raise UsageError()
 
     def execute(self, agent_number, extension, context):
-        self._agent_client.agents.login_agent_by_number(agent_number, extension, context)
+        self._agent_client.agents.login_agent_by_number(
+            agent_number, extension, context
+        )
 
 
 class LogoffCommand(BaseAgentClientCommand):
@@ -144,7 +146,7 @@ class RelogAllCommand(BaseAgentClientCommand):
         try:
             timeout_flag = len(command_args) > 0 and command_args[0] == '--timeout'
             timeout = int(command_args[1]) if timeout_flag else None
-            return timeout,
+            return (timeout,)
         except Exception:
             raise UsageError()
 
@@ -208,7 +210,9 @@ class StatusCommand(BaseAgentClientCommand):
             _print_agent_status(agent_status)
 
     def _execute(self, agent_number):
-        agent_status = self._agent_client.agents.get_agent_status_by_number(agent_number)
+        agent_status = self._agent_client.agents.get_agent_status_by_number(
+            agent_number
+        )
         _print_agent_status(agent_status)
 
 

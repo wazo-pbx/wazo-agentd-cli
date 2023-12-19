@@ -1,4 +1,4 @@
-# Copyright 2015-2020 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2015-2023 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 import argparse
@@ -34,20 +34,19 @@ def load(argv):
 
 def _parse_cli_args(argv):
     parser = argparse.ArgumentParser()
-    parser.add_argument('-c',
-                        '--command',
-                        action='store',
-                        help='Command to run.')
-    parser.add_argument('--config-file',
-                        action='store',
-                        help="The path where is the config file.")
-    parser.add_argument('--host',
-                        action='store',
-                        help='Hostname of the wazo-agentd server.')
-    parser.add_argument('--port',
-                        action='store',
-                        type=int,
-                        help='Port number of the wazo-agentd server.')
+    parser.add_argument('-c', '--command', action='store', help='Command to run.')
+    parser.add_argument(
+        '--config-file', action='store', help="The path where is the config file."
+    )
+    parser.add_argument(
+        '--host', action='store', help='Hostname of the wazo-agentd server.'
+    )
+    parser.add_argument(
+        '--port',
+        action='store',
+        type=int,
+        help='Port number of the wazo-agentd server.',
+    )
     parsed_args = parser.parse_args(argv)
 
     result = {'agentd': {}}
@@ -65,5 +64,9 @@ def _parse_cli_args(argv):
 
 def _load_key_file(config):
     key_file = parse_config_file(config['auth']['key_file'])
-    return {'auth': {'service_id': key_file['service_id'],
-                     'service_key': key_file['service_key']}}
+    return {
+        'auth': {
+            'service_id': key_file['service_id'],
+            'service_key': key_file['service_key'],
+        }
+    }
