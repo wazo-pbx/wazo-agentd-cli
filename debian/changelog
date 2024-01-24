@@ -6,7 +6,7 @@ wazo-agentd-cli (19.10~20190826) wazo-dev-stretch; urgency=medium
 
 xivo-agentd-cli (0.2) xivo-dev; urgency=medium
 
-  * Rename xivo-agentdctl to xivo-agentd-cli 
+  * Rename xivo-agentdctl to xivo-agentd-cli
 
  -- Francois Blackburn <fblackburn@avencall.com>  Wed, 18 Mar 2015 11:16:46 -0400
 
