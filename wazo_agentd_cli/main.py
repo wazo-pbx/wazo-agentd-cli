@@ -1,13 +1,14 @@
-# Copyright 2012-2023 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2012-2024 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 import sys
-import wazo_auth_client
-import wazo_agentd_client
-
 from operator import attrgetter
-from xivo.token_renewer import TokenRenewer
+
+import wazo_agentd_client
+import wazo_auth_client
 from xivo.cli import BaseCommand, Interpreter, UsageError
+from xivo.token_renewer import TokenRenewer
+
 from wazo_agentd_cli.config import load as load_config
 
 
