@@ -8,9 +8,6 @@ X-Python3-Version: >= 3.9
 
 Package: wazo-agentd-cli
 Architecture: all
-Provides: xivo-agentd-cli
-Conflicts: xivo-agentd-cli
-Replaces: xivo-agentd-cli
 Section: python
 Depends: ${python3:Depends},
          ${misc:Depends},
