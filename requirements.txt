@@ -4,4 +4,4 @@ https://github.com/wazo-platform/wazo-agentd-client/archive/master.zip
 https://github.com/wazo-platform/xivo-lib-python/archive/master.zip
 pyyaml==5.3.1  # from xivo-lib-python
 requests==2.25.1  # from xivo-*-client
-stevedore==3.2.2  # from xivo-lib-rest-client
+stevedore==4.0.2  # from xivo-lib-rest-client
